@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Preview - AI Chat Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #f5f7fa;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: auto;
+      overflow: auto;
+      display: block;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .theme-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      height: 320px;
+    }
+    
+    .theme-name {
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      text-transform: capitalize;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+    }
+    
+    .preview-container {
+      height: 280px;
+      overflow: hidden;
+      padding: 10px;
+    }
+    
+    .message-preview {
+      display: flex;
+      margin-bottom: 15px;
+      align-items: flex-start;
+    }
+    
+    .user-message-preview {
+      flex-direction: row-reverse;
+    }
+    
+    .message-avatar-preview {
+      font-size: 16px;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    
+    .user-message-preview .message-avatar-preview {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+    
+    .message-content-preview {
+      padding: 10px;
+      border-radius: 12px;
+      line-height: 1.4;
+      font-size: 13px;
+      max-width: 85%;
+    }
+    
+    .back-link {
+      display: block;
+      text-align: center;
+      margin: 20px 0;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Theme Preview</h1>
+  
+  <div class="theme-grid" id="theme-grid">
+    <!-- Themes will be inserted here via JavaScript -->
+  </div>
+  
+  <a href="index.html" class="back-link">← Back to Chat</a>
+
+  <script>
+    const themes = [
+      'light', 'dark', 'blue', 'purple', 'green', 
+      'amber', 'crimson', 'midnight', 'sunset', 'forest'
+    ];
+    
+    const themeGrid = document.getElementById('theme-grid');
+    
+    themes.forEach(theme => {
+      const themeCard = document.createElement('div');
+      themeCard.className = 'theme-card';
+      themeCard.innerHTML = `
+        <div class="theme-name">${theme} Theme</div>
+        <div class="preview-container" data-theme="${theme}">
+          <div class="message-preview user-message-preview">
+            <div class="message-avatar-preview">👤</div>
+            <div class="message-content-preview user-message-content">Hello there!</div>
+          </div>
+          <div class="message-preview ai-message-preview">
+            <div class="message-avatar-preview">🤖</div>
+            <div class="message-content-preview ai-message-content">Hi! How can I help you today?</div>
+          </div>
+          <div class="system-message-preview">
+            <div class="message-content-preview system-message-content">System message</div>
+          </div>
+        </div>
+      `;
+      themeGrid.appendChild(themeCard);
+      
+      // Apply theme-specific styles
+      const previewContainer = themeCard.querySelector('.preview-container');
+      const userMessage = previewContainer.querySelector('.user-message-content');
+      const aiMessage = previewContainer.querySelector('.ai-message-content');
+      const systemMessage = previewContainer.querySelector('.system-message-content');
+      
+      // Apply different theme styles based on data-theme attribute
+      applyThemeStyles(theme, previewContainer, userMessage, aiMessage, systemMessage);
+    });
+    
+    function applyThemeStyles(theme, container, userMsg, aiMsg, sysMsg) {
+      // Get computed styles from a temporary element with the theme
+      const tempDiv = document.createElement('div');
+      tempDiv.setAttribute('data-theme', theme);
+      document.body.appendChild(tempDiv);
+      
+      // Apply theme styles to container
+      container.style.background = getComputedStyle(tempDiv).getPropertyValue('--chat-bg');
+      container.style.color = getComputedStyle(tempDiv).getPropertyValue('--text-color');
+      
+      // Apply message styles
+      userMsg.style.background = getComputedStyle(tempDiv).getPropertyValue('--message-user-bg');
+      userMsg.style.color = getComputedStyle(tempDiv).getPropertyValue('--message-user-color');
+      
+      aiMsg.style.background = getComputedStyle(tempDiv).getPropertyValue('--message-ai-bg');
+      aiMsg.style.color = getComputedStyle(tempDiv).getPropertyValue('--message-ai-color');
+      
+      sysMsg.style.background = getComputedStyle(tempDiv).getPropertyValue('--system-message-bg');
+      sysMsg.style.color = getComputedStyle(tempDiv).getPropertyValue('--system-message-color');
+      sysMsg.style.border = '1px solid ' + getComputedStyle(tempDiv).getPropertyValue('--system-border');
+      
+      document.body.removeChild(tempDiv);
+    }
+  </script>
+</body>
+</html>

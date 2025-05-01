@@ -1,0 +1,191 @@
+/* Mobile-specific styles */
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 10px !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    min-height: 50px !important;
+  }
+  
+  .app-title {
+    font-size: 16px !important;
+  }
+  
+  .btn-text {
+    display: none !important; /* Hide button text on mobile */
+  }
+  
+  .app-controls {
+    gap: 5px !important;
+  }
+  
+  .app-controls button {
+    padding: 6px 8px !important;
+  }
+  
+  .model-selector-container {
+    padding: 6px 10px !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+  
+  .model-label {
+    display: none !important; /* Hide "Model:" label on mobile */
+  }
+  
+  .ai-model-dropdown {
+    max-width: 150px !important;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+  }
+  
+  .model-info {
+    padding: 4px !important;
+  }
+  
+  .model-status {
+    font-size: 11px !important;
+    padding: 2px 6px !important;
+  }
+  
+  .chat-area {
+    height: calc(100vh - 110px) !important; /* Adjust height to account for smaller header/model selector */
+  }
+  
+  #chat-box {
+    padding: 10px !important;
+  }
+  
+  .message {
+    max-width: 90% !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .message-content {
+    padding: 10px !important;
+    font-size: 14px !important;
+  }
+  
+  .message-avatar {
+    min-width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+    margin-right: 8px !important;
+  }
+  
+  .user-message .message-avatar {
+    margin-left: 8px !important;
+  }
+  
+  .input-area {
+    padding: 10px !important;
+  }
+  
+  input {
+    padding: 10px !important;
+    font-size: 14px !important;
+  }
+  
+  button {
+    padding: 10px !important;
+  }
+  
+  .model-badge {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+  }
+  
+  /* Collapsible Navigation */
+  body.mobile-view .app-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+    background: var(--header-bg) !important;
+  }
+  
+  body.mobile-view .model-selector-container {
+    position: sticky !important;
+    top: 50px !important;
+    z-index: 100 !important;
+    background: var(--container-bg) !important;
+  }
+
+  /* Code blocks in mobile view */
+  pre.code-block {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    font-size: 12px !important;
+    padding: 10px !important;
+  }
+  
+  /* Cancel button positioning for mobile */
+  .cancel-reload-btn {
+    bottom: 65px !important;
+    right: 10px !important;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+  }
+  
+  /* System messages */
+  .system-message .message-content {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Fix for extremely small screens */
+@media (max-width: 320px) {
+  .app-title-icon {
+    display: none !important;
+  }
+  
+  .model-info {
+    display: none !important;
+  }
+  
+  .ai-model-dropdown {
+    max-width: 120px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* Add a toggle button for mobile navigation */
+#mobile-nav-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #mobile-nav-toggle {
+    display: block;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--btn-primary-bg);
+    color: white;
+    border: none;
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    cursor: pointer;
+  }
+  
+  body.nav-hidden .model-selector-container,
+  body.nav-hidden .app-header {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  body:not(.nav-hidden) .model-selector-container,
+  body:not(.nav-hidden) .app-header {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+}

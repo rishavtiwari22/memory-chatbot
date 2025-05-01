@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Model AI Chat Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+  <style>
+    /* Add theme indicator styles */
+    .theme-indicator {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: var(--btn-primary-bg);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+      z-index: 100;
+      text-transform: capitalize;
+    }
+    .theme-indicator:hover {
+      opacity: 1;
+    }
+    
+    @media (max-width: 600px) {
+      .theme-indicator {
+        bottom: 60px;
+        left: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <!-- The JS will populate this container -->
+  </div>
+  <div id="theme-indicator" class="theme-indicator">Light Theme</div>
+  <button id="mobile-nav-toggle" title="Toggle Navigation">↑</button>
+  <script src="script.js"></script>
+  <script>
+    // Initialize theme indicator
+    document.addEventListener('DOMContentLoaded', function() {
+      updateThemeIndicator();
+      
+      // Update the theme button title to include all themes
+      const themeButton = document.querySelector('.btn-theme');
+      if (themeButton) {
+        themeButton.title = "Change theme (Light → Dark → Blue → Purple → Green → Amber → Crimson → Midnight → Sunset → Forest)";
+      }
+    });
+    
+    // Update theme indicator when theme changes
+    function updateThemeIndicator() {
+      const themeIndicator = document.getElementById('theme-indicator');
+      if (themeIndicator) {
+        const currentTheme = document.body.getAttribute('data-theme') || 'light';
+        themeIndicator.textContent = currentTheme + ' Theme';
+      }
+    }
+    
+    // Override toggleTheme to update indicator
+    const originalToggleTheme = toggleTheme;
+    toggleTheme = function() {
+      originalToggleTheme();
+      updateThemeIndicator();
+    };
+  </script>
+</body>
+</html>
